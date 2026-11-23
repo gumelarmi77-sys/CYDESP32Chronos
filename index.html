@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DisplayConnect - ESP32 CYD Motorcycle Navigation</title>
+    <meta name="description" content="Smart motorcycle navigation system and companion app for ESP32 Cheap Yellow Display (CYD) with real-time GPS turn-by-turn guidance, BLE smartphone integration, and firmware generator." />
+    <meta property="og:title" content="DisplayConnect - ESP32 CYD Motorcycle Navigation" />
+    <meta property="og:description" content="Smart motorcycle navigation system and companion app for ESP32 Cheap Yellow Display (CYD) with real-time GPS turn-by-turn guidance, BLE smartphone integration, and firmware generator." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <script>
+      // Bersihkan Service Worker dev-sw lama bila pernah terdaftar agar tidak memblokir pemuatan modul dev
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          var hadDevSw = false;
+          var tasks = regs.map(function (reg) {
+            var scriptUrl = (reg.active && reg.active.scriptURL) || (reg.waiting && reg.waiting.scriptURL) || (reg.installing && reg.installing.scriptURL) || '';
+            if (scriptUrl.indexOf('dev-sw.js') !== -1) {
+              hadDevSw = true;
+              return reg.unregister();
+            }
+            return Promise.resolve(false);
+          });
+          Promise.all(tasks).then(function () {
+            if (hadDevSw && 'caches' in window) {
+              caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+              }).then(function () {
+                if (!sessionStorage.getItem('dc_sw_cleaned')) {
+                  sessionStorage.setItem('dc_sw_cleaned', '1');
+                  window.location.reload();
+                }
+              });
+            }
+          });
+        });
+      }
+    </script>
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

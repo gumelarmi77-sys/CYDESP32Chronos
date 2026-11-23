@@ -1,0 +1,6 @@
+{
+  "name": "DisplayConnect - CYD ESP32 Motorcycle Navigator & Dashboard",
+  "description": "Smart motorcycle navigation system and companion app for ESP32 Cheap Yellow Display (CYD) with real-time GPS turn-by-turn guidance, BLE smartphone integration, and firmware generator.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

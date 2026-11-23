@@ -1,0 +1,22 @@
+<!-- ========================================================================= -->
+<!-- Tambahkan bagian di bawah ke app/src/main/AndroidManifest.xml             -->
+<!-- Repository: https://github.com/malaq88/DisplayConnect                     -->
+<!-- ========================================================================= -->
+
+<!-- 1. Tambahkan <uses-permission> di dalam <manifest> (sebelum <application>) -->
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.READ_CALL_LOG" />
+<!-- Opsional: hapus jika tidak ingin menampilkan nama kontak pada panggilan masuk -->
+<uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
+<!-- 2. Tambahkan <service> di dalam <application> -->
+<service
+    android:name=".notifications.WhatsAppNotificationListenerService"
+    android:exported="true"
+    android:label="DisplayConnect CYD Alerts"
+    android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+    <intent-filter>
+        <action android:name="android.service.notification.NotificationListenerService" />
+    </intent-filter>
+</service>
